@@ -1,0 +1,305 @@
+:root {
+    --trello-blue: #0079bf;
+    --trello-dark-blue: #026aa7;
+    --list-bg: #ebecf0;
+    --card-bg: #ffffff;
+    --text-color: #172b4d;
+    --label-green: #61bd4f;
+    --label-red: #eb5a46;
+    --btn-primary: #0079bf; /* Verde Trello padrão para botões é normalmente verde (#5aac44), mas vou usar azul para consistência */
+    --btn-primary-hover: #026aa7;
+    --input-border: #dfe1e6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    background-color: var(--trello-blue);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* O scroll fica dentro do canvas se necessário */
+}
+
+/* Header */
+.trello-header {
+    background-color: rgba(0,0,0,0.15);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    color: white;
+    height: 40px;
+    flex-shrink: 0;
+    backdrop-filter: blur(4px);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.3);
+    padding: 4px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.logo-area:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+.logo-area h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif; /* Fonte 'logo' */
+}
+
+/* Board Canvas */
+.board-canvas {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    padding: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 12px;
+}
+
+/* Listas (Colunas) */
+.list-wrapper {
+    width: 272px;
+    margin: 0 4px;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.list-content {
+    background-color: var(--list-bg);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal;
+}
+
+.list-header {
+    padding: 10px 8px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    min-height: 20px;
+}
+
+.list-header h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 8px;
+    color: #172b4d;
+}
+
+.list-menu-icon {
+    color: #6b778c;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+.list-menu-icon:hover {
+    background-color: rgba(9,30,66,.08);
+    color: #172b4d;
+}
+
+.list-cards {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 4px;
+    padding: 0 4px;
+    min-height: 0;
+}
+
+/* Scrollbar personalizada fina */
+.list-cards::-webkit-scrollbar {
+    width: 8px;
+}
+.list-cards::-webkit-scrollbar-track {
+    background: rgba(9,30,66,.08);
+    border-radius: 4px;
+}
+.list-cards::-webkit-scrollbar-thumb {
+    background: #bfc4ce;
+    border-radius: 4px;
+}
+
+/* Cards (Itens) */
+.produto-card {
+    background-color: var(--card-bg);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+    padding: 8px 10px;
+    transition: background-color 0.15s;
+}
+
+.produto-card:hover {
+    background-color: #f4f5f7;
+}
+
+.produto-labels {
+    
+    margin-bottom: 4px;
+    display: flex;
+}
+
+.card-label {
+    display: block;
+    height: 8px;
+    width: 40px;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+
+.card-label.green { background-color: var(--label-green); }
+.card-label.red { background-color: var(--label-red); }
+
+.produto-info h3 {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: #172b4d;
+}
+
+.produto-details {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: #5e6c84;
+}
+
+.icon-price {
+    margin-right: 4px;
+}
+
+/* Card Composer (Formulário) */
+.card-composer {
+    background-color: #fff; /* Fundo branco pra destacar o form */
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #5e6c84;
+    margin-bottom: 4px;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid var(--input-border);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #172b4d;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--trello-blue);
+    outline: none;
+}
+
+.btn-add {
+    background-color: #5aac44; /* Verde Trello "Adicionar" */
+    color: white;
+    border: none;
+    box-shadow: none;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-add:hover {
+    background-color: #61bd4f;
+}
+
+.list-footer {
+    padding: 8px;
+    color: #5e6c84;
+    cursor: pointer;
+    border-radius: 0 0 3px 3px;
+    transition: background 0.1s;
+}
+
+.list-footer:hover {
+    background-color: rgba(9,30,66,.08);
+    color: #172b4d;
+}
+
+.list-footer a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Badges bonitinhas dentro do card */
+.tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 5px;
+    color: white;
+    vertical-align: middle;
+}
+
+.tag.disp {
+    background-color: var(--label-green);
+}
+.tag.esg {
+    background-color: var(--label-red);
+}
+
+.price-tag {
+    background-color: #eee;
+    color: #555;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
