@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const produtoForm = document.getElementById("produtoForm");
-  const nomeInput = document.getElementById("nome");
-  const precoInput = document.getElementById("preco");
+  const produtoFormElement = document.getElementById("produtoForm");
+  const produtoTableElement = document.getElementById("produtoTable");
+  this.getElementsByTagName('tbody')[0];
+  const produtoIdELement = document.getElementById("produtoId");
+  
   
 
 });
