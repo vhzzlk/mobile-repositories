@@ -26,4 +26,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
+
+  txtCancelar: {
+   color: theme.colors.danger,
+    alignItems: "center",
 });
