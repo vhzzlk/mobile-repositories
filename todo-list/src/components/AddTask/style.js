@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
   },
 
   txtCancelar: {
-   color: theme.colors.danger,
+    color: theme.colors.danger,
     alignItems: "center",
+  },
 });
