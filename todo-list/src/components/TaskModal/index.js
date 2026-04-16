@@ -24,7 +24,7 @@ export default function TaskModal({ visible, onClose, onSave, taskToEdit }) {
   }, [taskToEdit, visible]);
 
   return (
-    <Modal visible={visible} animation="slide">
+    <Modal visible={visible} animationType="slide">
       <View style={styles.modalBody}>
         <Text style={styles.label}>
           {taskToEdit ? "Editar Tarefa" : "Nova Tarefa"}

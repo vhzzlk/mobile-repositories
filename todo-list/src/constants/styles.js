@@ -1,4 +1,4 @@
-import { Plataform, StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 
 export const prioridades = {
     alta: '#f00',
@@ -6,7 +6,7 @@ export const prioridades = {
     baixa: '#00b800',
 };
 
-export const STATUS_BAR_HEIGHT = Plataform.OS === 'android' ? StatusBar.currentHeight : 0;
+export const STATUS_BAR_HEIGHT = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 export const PRIMARY_COLOR = '#6200ee';
 export const ACCENT_COLOR_YELLOW = '#ffc107';
 export const ACCENT_COLOR_RED = '#f44336';

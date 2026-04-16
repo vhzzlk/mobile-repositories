@@ -1,32 +1,27 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from "react-native";
+import { theme } from "../../styles/global";
+import { styles } from "./styles";
 
-import { theme } from '../../styles/global';
+export default function TaskCard({ task, onDelete, onEdit }) {
+    const priorityColor = theme.colors.priority[task.priority] || theme.colors.textSub;
+    const startDate = task.startDate ?? task.start ?? "";
+    const endDate = task.endDate ?? task.end ?? "";
 
-export default function TaskCard({item, onDelete, onEdit}){
-    const priorityColor = theme.colors.priority[item.priority] || theme.colors.textSub;
-
-    return(
+    return (
         <View style={[styles.card, { borderLeftColor: priorityColor }]}>
             <View style={{ flex: 1 }}>
-                <Text style={styles.title}>
-                    {item.title}
-                </Text>
-                <Text style={styles.desc}>
-                    {item.description}
-                </Text>
-                <Text style={[styles.badge, { color: priorityColor }]}> ● { item.priority }
-                </Text>
-                <Text style={styles.date}>
-                    { item.start } - { item.end }
-                </Text>
+                <Text style={styles.title}>{task.title}</Text>
+                <Text style={styles.desc}>{task.description}</Text>
+                <Text style={[styles.badge, { color: priorityColor }]}>● {task.priority}</Text>
+                <Text style={styles.date}>{startDate} - {endDate}</Text>
             </View>
 
             <View style={styles.actions}>
-                <TouchableOpacity onPress = { onEdit }>
-                    <Text style={styles.icon}></Text>
+                <TouchableOpacity onPress={onEdit}>
+                    <Text style={styles.icon}>Editar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress = { onDelete }>
-                    <Text style={styles.icon}></Text>
+                <TouchableOpacity onPress={onDelete}>
+                    <Text style={styles.icon}>Excluir</Text>
                 </TouchableOpacity>
             </View>
         </View>

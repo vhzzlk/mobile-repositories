@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
         borderWidth: 1,
         borderColor: theme.colors.border,
-        frontSize: 16,
+        fontSize: 16,
         marginBottom: 20,
     },
     

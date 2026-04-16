@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
-import style from "./style.js";
+import { styles } from "./style.js";
 
 export default function AddTask({ visible, onClose, onSave, taskToEdit }) {
   const [task, setTask] = useState(
-    taskToEdit || { title: "", description: "" },
+    taskToEdit || { title: "", description: "", priority: "", startDate: "", endDate: "" },
   );
 
-  const HandleSave = () => {
+  const handleSave = () => {
     onSave(task);
-    setTask({ title: "", description: "", priority: "", start: "", end: "" });
+    setTask({ title: "", description: "", priority: "", startDate: "", endDate: "" });
+    onClose();
   };
+
   return (
     <Modal visible={visible} animationType="slide">
-      <View style={style.modal}>
-        <Text style={style.titulo}>Nova tarefa</Text>
+      <View style={styles.modal}>
+        <Text style={styles.titulo}>Nova tarefa</Text>
         <TextInput
           placeholder="Titulo"
-          style={style.input}
+          value={task.title}
+          style={styles.input}
           onChangeText={(t) =>
             setTask({
               ...task,
@@ -27,7 +30,8 @@ export default function AddTask({ visible, onClose, onSave, taskToEdit }) {
         />
         <TextInput
           placeholder="Descrição"
-          style={style.input}
+          value={task.description}
+          style={styles.input}
           onChangeText={(d) =>
             setTask({
               ...task,
@@ -37,7 +41,8 @@ export default function AddTask({ visible, onClose, onSave, taskToEdit }) {
         />
         <TextInput
           placeholder="Prioridade baixa, média ou alta"
-          style={style.input}
+          value={task.priority}
+          style={styles.input}
           onChangeText={(p) =>
             setTask({
               ...task,
@@ -47,31 +52,33 @@ export default function AddTask({ visible, onClose, onSave, taskToEdit }) {
         />
         <TextInput
           placeholder="Data de início: DD/MM"
-          style={style.input}
+          value={task.startDate}
+          style={styles.input}
           onChangeText={(s) =>
             setTask({
               ...task,
-              start: s,
+              startDate: s,
             })
           }
         />
         <TextInput
           placeholder="Data de fim"
-          style={style.input}
+          value={task.endDate}
+          style={styles.input}
           onChangeText={(e) =>
             setTask({
               ...task,
-              end: e,
+              endDate: e,
             })
           }
         />
 
-        <TouchableOpacity style={style.btnSalvar} onPress={HandleSave}>
+        <TouchableOpacity style={styles.btnSalvar} onPress={handleSave}>
           <Text>Salvar Tarefa</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onClose}>
-          <Text style={style.txtCancelar}>Cancelar</Text>
+          <Text style={styles.txtCancelar}>Cancelar</Text>
         </TouchableOpacity>
       </View>
     </Modal>

@@ -1,37 +1,51 @@
-import React, { useState, useEffect } from "react-native";
+import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
-import style from "./style.js";
+import { styles } from "./style.js";
 
 export default function EditTask({ visible, onClose, onSave, taskData }) {
-  const [currentTask, setCurrentTask] = useState(taskData);
+  const [currentTask, setCurrentTask] = useState({
+    title: "",
+    description: "",
+    priority: "",
+    startDate: "",
+    endDate: "",
+  });
 
   useEffect(() => {
-    setCurrentTask(taskData);
+    setCurrentTask(
+      taskData || {
+        title: "",
+        description: "",
+        priority: "",
+        startDate: "",
+        endDate: "",
+      }
+    );
   }, [taskData]);
+
   return (
     <Modal visible={visible} animationType="fade">
-      <View style={style.modal}>
-        <Text style={style.titulo}>Editar tarefa</Text>
+      <View style={styles.modal}>
+        <Text style={styles.titulo}>Editar tarefa</Text>
         <TextInput
           value={currentTask.title}
-          style={style.input}
+          style={styles.input}
           onChangeText={(t) => setCurrentTask({ ...currentTask, title: t })}
-        ></TextInput>
+        />
         <TextInput
           value={currentTask.description}
-          style={style.input}
+          style={styles.input}
           onChangeText={(t) =>
             setCurrentTask({ ...currentTask, description: t })
           }
-        ></TextInput>
-        <TouchableOpacity style={style.button} onPress={() => onSave(currentTask)}>
+        />
+        <TouchableOpacity style={styles.button} onPress={() => onSave(currentTask)}>
           <Text>Atualizar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={style.button} onPress={onClose}>
+        <TouchableOpacity style={styles.button} onPress={onClose}>
           <Text>Cancelar</Text>
         </TouchableOpacity>
-
       </View>
     </Modal>
   );
